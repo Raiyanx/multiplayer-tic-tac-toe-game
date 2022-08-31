@@ -2,7 +2,6 @@ import "./Game.css"
 import GameScript from "./GameScript"
 import { useEffect } from "react"
 
-
 export default function Game(){
 
     useEffect(()=>{
@@ -23,7 +22,9 @@ export default function Game(){
     </div>
     <div className="winning-message" id="winningMessage">
         <div data-winning-message-text></div>
-        <button id="restartButton">Restart</button>
+        <button id="restartButton">
+            Restart
+        </button>
     </div>
     </>)
 }

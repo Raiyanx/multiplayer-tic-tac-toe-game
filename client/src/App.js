@@ -4,9 +4,7 @@ import Game from './pages/Game';
 import Home from './pages/Home';
 import { useState } from 'react';
 
-import { io } from "socket.io-client"
-
-const socket = io('http://localhost:3000')
+import socket from './socket';
 
 function App(props) {
 

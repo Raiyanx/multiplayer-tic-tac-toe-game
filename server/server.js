@@ -20,6 +20,20 @@ io.on('connection', socket => {
         displaySockets();
     })
 
+    socket.on('join-room', (room, cb) => {
+        io.in(room).fetchSockets().then(res => {
+            let count = res.length
+            console.log(`count: ${count}`)
+            if(count == 0){
+                socket.join(room);
+            }
+            else{
+                cb()
+            }
+        });
+        
+    })
+
 })
 
 function displaySockets(){
