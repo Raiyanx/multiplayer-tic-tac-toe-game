@@ -1,41 +1,83 @@
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import socket from '../socket';
+import "./Home.css";
 
-export default function Home(props){
+
+export default function Home(){
+
+    const code = makeCode(17);
 
     useEffect(() => {
         const joinRoomButton = document.getElementById("join-button");
-        const roomInput = document.getElementById("room-id");
-        const room = roomInput.value;
-        joinRoomButton.addEventListener("click", handleClick)
-        function handleClick() {
-            socket.emit('join-room', room, () => {
-                alert("There are already 2 players in this room. Please select another room.")
-            });
-        }
         
+        const createRoomButton = document.getElementById("create-button");
+        const codeLabel = document.getElementById('share-code');
+        const joinRoom = document.getElementById('join-room');
+        const createRoom = document.getElementById('create-room');
+        const play = document.getElementById('play');
+
+        createRoomButton.addEventListener("click", createRoomButtonHandlEClick);
+        function createRoomButtonHandlEClick() {
+
+
+            codeLabel.classList.remove('hide');
+            joinRoom.classList.add('hide');
+            createRoom.classList.add('hide');
+
+            play.classList.remove('hide');
+            socket.emit('create-room', code);
+        }
+
+        joinRoomButton.addEventListener("click", joinRoomButtonHandleClick)
+        function joinRoomButtonHandleClick() {
+
+            const roomInput = document.getElementById("room-input");
+            const room = roomInput.value;
+
+            socket.emit('join-room', room, func1);
+
+            function func1(msg){
+                alert(msg);
+            }
+
+           
+        }
 
         return (() => {
-            joinRoomButton.removeEventListener("click", handleClick);
+            joinRoomButton.removeEventListener("click", joinRoomButtonHandleClick);
+            createRoomButton.removeEventListener("click", createRoomButtonHandlEClick);
         })
-    }, [])
+    }, [code])
 
     return (<>
         <h2>Welcome to Tic-Tac-Toe!</h2>
             <div>
-                <label>To play with someone else, send this code to them<h3>{props.socketId}</h3></label>
+                <div id="create-room">
+                    <label>Create a room: </label>
+                    <button id="create-button">Create room</button>
+                </div>
+                <label className='hide' id="share-code">Share this code with your friend: <h3>{code}</h3></label>
             </div>
             <br />
-            <div>
-                <label>Or join Someone Else's Room: </label>
-                <input type="text" id="room-id" />
+            <div id="join-room">
+                <label>Or join someone else's Room: </label>
+                <input type="text" id="room-input" />
                 <button id="join-button">Join room</button>
             </div>
             <br />
-            <div>
-                <label> and then click </label>
+            <div className='hide' id="play">
                 <Link to="/game">Play</Link>
             </div>
     </>)
+}
+
+function makeCode(length) {
+    var code = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for(let i=0; i<length; i++){
+        code += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return code;
 }

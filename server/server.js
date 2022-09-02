@@ -20,22 +20,35 @@ io.on('connection', socket => {
         displaySockets();
     })
 
-    socket.on('join-room', (room, cb) => {
-        io.in(room).fetchSockets().then(res => {
-            let count = res.length
-            console.log(`count: ${count}`)
-            if(count == 0){
-                socket.join(room);
-            }
-            else{
-                cb()
-            }
-        });
+    socket.on('join-room', async (room, cb) => {
+        console.log(`finding in ${room}`);
+        let countx = await io.in(room).allSockets()
+        console.log(countx);
+        let count = countx.size;
+        console.log(`count: ${count}`)
+        if(count == 0){
+            cb("There are no such rooms");
+        }
+        else if(count == 1){
+            socket.join(room);
+            cb(`You joined ${room}`)
+        }
+        else{
+            cb("There are already 2 people in this room")
+        }
+        
         
     })
 
-    socket.on("trigger-click", id => {
-        socket.broadcast.emit("trigger-click", id);
+    socket.on('create-room', async room => {
+        await socket.join(room);
+        console.log(`${socket.id} created ${room}`)
+        let countx = await io.in(room).allSockets()
+        console.log(countx);
+    })
+
+    socket.on("trigger-click", async id => {
+        await socket.broadcast.emit("trigger-click", id);
     })
 
 })

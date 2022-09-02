@@ -14,7 +14,6 @@ export default function GameScript(){
         [2,4,6]
     ]
 
-
     const cellElements = document.querySelectorAll('[data-cell]');
     const board = document.getElementById('board');
     const winningMessageElement = document.getElementById('winningMessage')
