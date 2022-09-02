@@ -34,6 +34,10 @@ io.on('connection', socket => {
         
     })
 
+    socket.on("trigger-click", id => {
+        socket.broadcast.emit("trigger-click", id);
+    })
+
 })
 
 function displaySockets(){

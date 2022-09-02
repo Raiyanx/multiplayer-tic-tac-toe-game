@@ -10,15 +10,15 @@ export default function Game(){
 
     return (<>
     <div className="board" id="board">
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
-        <div className="cell" data-cell></div>
+        <div className="cell" id="0" data-cell></div>
+        <div className="cell" id="1" data-cell></div>
+        <div className="cell" id="2" data-cell></div>
+        <div className="cell" id="3" data-cell></div>
+        <div className="cell" id="4" data-cell></div>
+        <div className="cell" id="5" data-cell></div>
+        <div className="cell" id="6" data-cell></div>
+        <div className="cell" id="7" data-cell></div>
+        <div className="cell" id="8" data-cell></div>
     </div>
     <div className="winning-message" id="winningMessage">
         <div data-winning-message-text></div>

@@ -1,3 +1,5 @@
+import socket from '../socket';
+
 export default function GameScript(){
     const X_CLASS = 'x'
     const CIRCLE_CLASS = 'circle'
@@ -50,6 +52,9 @@ export default function GameScript(){
             swapTurns()
             setBoardHoverClass()
         }
+
+        socket.emit("trigger-click", cell.id);
+
     }
 
     function endGame(draw) {
@@ -93,4 +98,11 @@ export default function GameScript(){
             })
         })
     }
+
+    socket.on("trigger-click", (id) => {
+        const cell = document.getElementById(id);
+        console.log("hi")
+        cell.click();
+    })
+
 }
