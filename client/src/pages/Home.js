@@ -19,8 +19,6 @@ export default function Home(){
 
         createRoomButton.addEventListener("click", createRoomButtonHandlEClick);
         function createRoomButtonHandlEClick() {
-
-
             codeLabel.classList.remove('hide');
             joinRoom.classList.add('hide');
             createRoom.classList.add('hide');
@@ -35,11 +33,21 @@ export default function Home(){
             const roomInput = document.getElementById("room-input");
             const room = roomInput.value;
 
-            socket.emit('join-room', room, func1);
+            socket.emit('join-room', room, (num) => {
+                if(num === 0){
+                    alert("There are no such rooms");
+                }
+                else if(num === 1){
+                    joinRoom.classList.add('hide');
+                    createRoom.classList.add('hide');
+                    play.classList.remove('hide');
 
-            function func1(msg){
-                alert(msg);
-            }
+                    alert(`You joined ${room}`);
+                }
+                else{
+                    alert("There are already 2 people in this room");
+                }
+            });
 
            
         }

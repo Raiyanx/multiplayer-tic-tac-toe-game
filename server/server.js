@@ -27,14 +27,14 @@ io.on('connection', socket => {
         let count = countx.size;
         console.log(`count: ${count}`)
         if(count == 0){
-            cb("There are no such rooms");
+            cb(0);
         }
         else if(count == 1){
             socket.join(room);
-            cb(`You joined ${room}`)
+            cb(1);
         }
         else{
-            cb("There are already 2 people in this room")
+            cb(2);
         }
         
         
