@@ -1,7 +1,7 @@
 # Multiplayer tic-tac-toe game
 This is a multiplayer tic-tac-toe game implemented using Socket.io.
 
-Note: This still needs to be deployed.
+Note: The game is complete but still needs to be deployed.
 
 To play this game, one can either:
 ### Create a new room
